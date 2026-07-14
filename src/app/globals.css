@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+:root {
+  /* Richmond 品牌系（取自官网 richmondestelar.com / richmondjbcc.com）：
+     深暖炭黑 #1D171B 为 drenched 底 + 香槟金属 #D0CBC3/#BBB2A7/#f5c891 为唯一强调。
+     token 名沿用引擎（--fire = 品牌强调色），值已换成香槟金。 */
+  --bg: oklch(0.2 0.012 340); /* #1D171B 深暖炭 */
+  --surface: oklch(0.24 0.014 340);
+  --surface-2: oklch(0.29 0.016 340);
+  --ink: oklch(0.96 0.008 80); /* 暖白 */
+  --muted: oklch(0.76 0.02 75); /* 香槟灰 #BBB2A7 系 */
+  --faint: oklch(0.63 0.02 75);
+  --water: oklch(0.45 0.03 340); /* 暗场层次（保留 token，弱化） */
+  --fire: oklch(0.83 0.075 80); /* 香槟金 #f5c891 系 —— 唯一强调 */
+  --fire-2: oklch(0.76 0.09 78);
+  --line: oklch(0.34 0.014 340);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-water: var(--water);
+  --color-fire: var(--fire);
+  --color-fire-2: var(--fire-2);
+  --color-line: var(--line);
+
+  --font-sans: var(--font-geist), -apple-system, "PingFang SC",
+    "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --font-display: var(--font-marcellus), var(--font-geist), "PingFang SC",
+    "Microsoft YaHei", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.8; /* 浅字深底需更多行距 */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── 面板（原 glass 类名沿用，改为奢牌哑光面板：细描边 + 无模糊） ── */
+.glass {
+  background: color-mix(in oklab, var(--surface) 88%, transparent);
+  border: 1px solid color-mix(in oklab, var(--fire) 14%, transparent);
+}
+.glass-strong {
+  background: var(--surface);
+  border: 1px solid color-mix(in oklab, var(--fire) 20%, transparent);
+  box-shadow: 0 18px 48px -20px rgb(0 0 0 / 0.65);
+}
+.glass-pill {
+  background: color-mix(in oklab, var(--surface-2) 55%, transparent);
+  border: 1px solid color-mix(in oklab, var(--fire) 16%, transparent);
+}
+.glass-hover:hover {
+  background: var(--surface-2);
+  border-color: color-mix(in oklab, var(--fire) 45%, transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .glass, .glass-strong, .glass-pill { transition: background .3s ease, border-color .3s ease; }
+}
+
+::selection {
+  background: var(--fire);
+  color: oklch(0.2 0.012 340);
+}
+
+/* 展示字：Marcellus（Trajan 式罗马体·与 Richmond logo 同族）——全大写仍易读 */
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+/* 中文标题不吃 Marcellus（回退系统黑体）——行高放宽、粗黑 */
+.font-display:lang(zh),
+:lang(zh) .font-display {
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+
+/* 分区小标（官网导航式全大写小字）——一页最多点睛一两处 */
+.kicker {
+  color: var(--fire);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* 金属细分隔线（香槟渐隐）——取代卡片堆叠的分区语言 */
+.hairline {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    to right,
+    transparent,
+    color-mix(in oklab, var(--fire) 45%, transparent),
+    transparent
+  );
+}
+
+/* 入场编排 */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  animation: rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.reveal-1 { animation-delay: 0.05s; }
+.reveal-2 { animation-delay: 0.15s; }
+.reveal-3 { animation-delay: 0.25s; }
+.reveal-4 { animation-delay: 0.35s; }
+.reveal-5 { animation-delay: 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; animation: none; }
+}
