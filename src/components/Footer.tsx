@@ -27,9 +27,12 @@ export default function Footer({ lang }: { lang: Lang }) {
         <div className="text-sm leading-relaxed">
           <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-faint">{d.agentLabel}</div>
           <p>
-            {SITE.agent.name}
-            {SITE.agent.renNo && <> · REN {SITE.agent.renNo}</>}
-            <br />
+            {[SITE.agent.name, SITE.agent.renNo && `REN ${SITE.agent.renNo}`].filter(Boolean).length > 0 && (
+              <>
+                {[SITE.agent.name, SITE.agent.renNo && `REN ${SITE.agent.renNo}`].filter(Boolean).join(" · ")}
+                <br />
+              </>
+            )}
             {zh ? "价目表 · 户型图 · 看房预约" : "Price list · floor plans · viewings"}
             <br />
             <a

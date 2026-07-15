@@ -33,10 +33,18 @@ export default function StickyWhatsApp({
           RJ
         </span>
         <div className="min-w-0 flex-1">
-          <div className="font-display text-sm font-extrabold leading-tight text-ink">
-            {SITE.agent.name}
-          </div>
-          <div className="truncate text-xs text-muted">Richmond JBCC · Richmond Mayor</div>
+          {SITE.agent.name ? (
+            <>
+              <div className="font-display text-sm font-extrabold leading-tight text-ink">
+                {SITE.agent.name}
+              </div>
+              <div className="truncate text-xs text-muted">Richmond JBCC · Richmond Mayor</div>
+            </>
+          ) : (
+            <div className="font-display text-sm font-extrabold leading-tight text-ink">
+              Richmond JBCC · Richmond Mayor
+            </div>
+          )}
         </div>
         <RoundContact message={message} />
       </div>

@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-/** 相片廊 + lightbox（点开看大图，键盘 / 箭头切换）。 */
+/** 相片廊：单行横向滑动缩略图 + lightbox（点开看大图，键盘 / 箭头切换）。 */
 export default function Gallery({
   images,
   alt,
@@ -17,6 +17,13 @@ export default function Gallery({
 }) {
   const [open, setOpen] = useState<number | null>(null);
   const altAt = (i: number) => alts?.[i] || `${alt} ${i + 1}`;
+  const trackRef = useRef<HTMLUListElement>(null);
+
+  function slideTrack(dir: 1 | -1) {
+    const el = trackRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * Math.min(el.clientWidth * 0.9, 360), behavior: "smooth" });
+  }
 
   const close = useCallback(() => setOpen(null), []);
   const step = useCallback(
@@ -40,77 +47,59 @@ export default function Gallery({
     };
   }, [open, close, step]);
 
-  const n = images.length;
-  // 缩略图一行最多 4 格；超过则最后一格变「+N / 看全部」
-  const MAX_TILES = 4;
-  const thumbs = images.slice(1);
-  const overflow = thumbs.length > MAX_TILES;
-  const visibleThumbs = overflow ? thumbs.slice(0, MAX_TILES - 1) : thumbs;
-  const moreCount = n - (1 + visibleThumbs.length);
-
   return (
     <>
-      {/* 紧凑拼贴：大图 + 一行缩略图（手机不用滑很久就到详情） */}
-      <button
-        type="button"
-        onClick={() => setOpen(0)}
-        className="group relative block w-full cursor-zoom-in overflow-hidden rounded-2xl bg-surface aspect-[16/10] sm:aspect-[16/8]"
-      >
-        <Image
-          src={images[0]}
-          alt={altAt(0)}
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 1000px"
-          className="object-cover transition duration-500 group-hover:scale-[1.03]"
-        />
-      </button>
-
-      {thumbs.length > 0 && (
-        <div className="mt-2 grid grid-cols-4 gap-2">
-          {visibleThumbs.map((src, i) => (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setOpen(i + 1)}
-              className="group relative aspect-square cursor-zoom-in overflow-hidden rounded-xl bg-surface"
-            >
-              <Image
-                src={src}
-                alt={altAt(i + 1)}
-                fill
-                sizes="(max-width: 768px) 25vw, 240px"
-                className="object-cover transition duration-500 group-hover:scale-105"
-              />
-            </button>
+      {/* 单行横向滑动缩略图（手机原生触摸滑动，桌面加左右箭头） */}
+      <div className="relative">
+        <ul
+          ref={trackRef}
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {images.map((src, i) => (
+            <li key={src} className="w-[78vw] shrink-0 snap-start sm:w-[340px]">
+              <button
+                type="button"
+                onClick={() => setOpen(i)}
+                className="group relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden rounded-2xl bg-surface"
+              >
+                <Image
+                  src={src}
+                  alt={altAt(i)}
+                  fill
+                  priority={i === 0}
+                  sizes="(max-width: 768px) 78vw, 340px"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                />
+              </button>
+            </li>
           ))}
-          {overflow && (
+        </ul>
+
+        {images.length > 1 && (
+          <>
             <button
               type="button"
-              onClick={() => setOpen(0)}
-              aria-label={`+${moreCount}`}
-              className="group relative aspect-square cursor-zoom-in overflow-hidden rounded-xl bg-surface"
+              onClick={() => slideTrack(-1)}
+              aria-label={labels.prev}
+              className="absolute left-0 top-1/2 hidden h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-bg text-ink ring-1 ring-line transition hover:ring-fire/50 hover:text-fire sm:flex"
             >
-              <Image
-                src={images[MAX_TILES - 1]}
-                alt={altAt(MAX_TILES - 1)}
-                fill
-                sizes="(max-width: 768px) 25vw, 240px"
-                className="object-cover brightness-[0.4]"
-              />
-              <span className="absolute inset-0 flex flex-col items-center justify-center text-white">
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden>
-                  <rect x="3" y="3" width="7" height="7" rx="1.5" />
-                  <rect x="14" y="3" width="7" height="7" rx="1.5" />
-                  <rect x="3" y="14" width="7" height="7" rx="1.5" />
-                  <rect x="14" y="14" width="7" height="7" rx="1.5" />
-                </svg>
-                <span className="mt-1 font-display text-lg font-bold leading-none">+{moreCount}</span>
-              </span>
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
             </button>
-          )}
-        </div>
-      )}
+            <button
+              type="button"
+              onClick={() => slideTrack(1)}
+              aria-label={labels.next}
+              className="absolute right-0 top-1/2 hidden h-10 w-10 -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-bg text-ink ring-1 ring-line transition hover:ring-fire/50 hover:text-fire sm:flex"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          </>
+        )}
+      </div>
 
       {open !== null && (
         <div

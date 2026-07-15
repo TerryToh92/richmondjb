@@ -6,6 +6,7 @@ import WhatsAppButton, { FireButton } from "@/components/WhatsAppButton";
 import RoundContact from "@/components/RoundContact";
 import StickyWhatsApp from "@/components/StickyWhatsApp";
 import InquiryForm from "@/components/InquiryForm";
+import AwardsCarousel from "@/components/AwardsCarousel";
 import JsonLd from "@/components/JsonLd";
 import type { Metadata } from "next";
 import { CheckIcon, PinIcon, DeedIcon } from "@/components/Icons";
@@ -272,24 +273,9 @@ export default async function Home({
             <h2 className="font-display text-3xl text-ink md:text-4xl">{d.awards.title}</h2>
             <p className="mt-4 text-lg text-muted">{d.awards.sub}</p>
           </div>
-          <ul className="mt-14 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-4">
-            {AWARDS.map((a) => (
-              <li key={a.img} className="flex flex-col items-center text-center">
-                <div className="relative h-28 w-24">
-                  <Image
-                    src={a.img}
-                    alt={zh ? a.nameZh : a.nameEn}
-                    fill
-                    sizes="96px"
-                    className="object-contain"
-                  />
-                </div>
-                <p className="mt-4 max-w-[22ch] text-xs leading-relaxed text-muted">
-                  {zh ? a.nameZh : a.nameEn}
-                </p>
-              </li>
-            ))}
-          </ul>
+          <AwardsCarousel
+            items={AWARDS.map((a) => ({ img: a.img, label: zh ? a.nameZh : a.nameEn }))}
+          />
         </section>
 
         {/* ── Why + 服务：文字三栏，无卡片 ── */}
@@ -349,10 +335,16 @@ export default async function Home({
                     RJ
                   </span>
                   <div className="min-w-0 flex-1">
-                    <div className="font-semibold leading-tight text-ink">
-                      {SITE.agent.name}
-                    </div>
-                    <div className="truncate text-sm text-muted">{d.agentRole}</div>
+                    {SITE.agent.name ? (
+                      <>
+                        <div className="font-semibold leading-tight text-ink">
+                          {SITE.agent.name}
+                        </div>
+                        <div className="truncate text-sm text-muted">{d.agentRole}</div>
+                      </>
+                    ) : (
+                      <div className="font-semibold leading-tight text-ink">{d.agentRole}</div>
+                    )}
                   </div>
                   <RoundContact message={d.waMsgGeneric} />
                 </div>

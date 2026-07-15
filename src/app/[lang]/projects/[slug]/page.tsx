@@ -504,8 +504,14 @@ export default async function ProjectPage({
                     RJ
                   </span>
                   <div className="min-w-0 flex-1">
-                    <div className="font-semibold leading-tight text-ink">{SITE.agent.name}</div>
-                    <div className="truncate text-xs text-muted">{d.agentLabel}</div>
+                    {SITE.agent.name ? (
+                      <>
+                        <div className="font-semibold leading-tight text-ink">{SITE.agent.name}</div>
+                        <div className="truncate text-xs text-muted">{d.agentLabel}</div>
+                      </>
+                    ) : (
+                      <div className="font-semibold leading-tight text-ink">{d.agentLabel}</div>
+                    )}
                   </div>
                   <RoundContact message={waMsg} />
                 </div>

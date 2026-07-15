@@ -184,7 +184,7 @@ export const DICT = {
       project: "Interested project",
       projectAny: "General enquiry",
       message: "Message (optional)",
-      submit: "Send enquiry via WhatsApp",
+      submit: "Register Interest",
       success: "WhatsApp is open — just hit Send to complete your enquiry.",
       reopen: "Didn't open? Tap here for WhatsApp",
       consent:
@@ -342,7 +342,7 @@ export const DICT = {
       project: "感兴趣的项目",
       projectAny: "一般咨询",
       message: "留言（选填）",
-      submit: "WhatsApp 送出询盘",
+      submit: "登记咨询",
       success: "已为你打开 WhatsApp，按「发送」就完成询盘。",
       reopen: "没打开？点这里直达 WhatsApp",
       consent:
