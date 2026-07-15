@@ -40,8 +40,6 @@ export default function Footer({ lang }: { lang: Lang }) {
             >
               WhatsApp {SITE.agent.phoneDisplay}
             </a>
-            <br />
-            {SITE.agent.email}
           </p>
         </div>
 
