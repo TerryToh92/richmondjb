@@ -116,24 +116,26 @@ export default function InquiryForm({
       <h3 className="font-display text-2xl text-ink">{d.title}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted">{d.sub}</p>
 
-      <div className="mt-8 space-y-7">
-        <div className="relative">
-          <input id="f-name" name="name" required placeholder=" " aria-label={d.name} className={field} />
-          <label htmlFor="f-name" className={label}>{d.name}</label>
-        </div>
+      <div className="mt-8 space-y-6">
+        <div className="grid gap-x-6 gap-y-6 sm:grid-cols-2">
+          <div className="relative">
+            <input id="f-name" name="name" required placeholder=" " aria-label={d.name} className={field} />
+            <label htmlFor="f-name" className={label}>{d.name}</label>
+          </div>
 
-        <div className="relative">
-          <input
-            id="f-phone"
-            name="phone"
-            required
-            type="tel"
-            inputMode="tel"
-            placeholder=" "
-            aria-label={d.phone}
-            className={field}
-          />
-          <label htmlFor="f-phone" className={label}>{d.phone}</label>
+          <div className="relative">
+            <input
+              id="f-phone"
+              name="phone"
+              required
+              type="tel"
+              inputMode="tel"
+              placeholder=" "
+              aria-label={d.phone}
+              className={field}
+            />
+            <label htmlFor="f-phone" className={label}>{d.phone}</label>
+          </div>
         </div>
 
         <div>
