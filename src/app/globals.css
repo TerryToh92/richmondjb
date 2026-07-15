@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  /* Richmond 品牌系（取自官网 richmondestelar.com / richmondjbcc.com）：
-     深暖炭黑 #1D171B 为 drenched 底 + 香槟金属 #D0CBC3/#BBB2A7/#f5c891 为唯一强调。
-     token 名沿用引擎（--fire = 品牌强调色），值已换成香槟金。 */
-  --bg: oklch(0.2 0.012 340); /* #1D171B 深暖炭 */
-  --surface: oklch(0.24 0.014 340);
-  --surface-2: oklch(0.29 0.016 340);
-  --ink: oklch(0.96 0.008 80); /* 暖白 */
-  --muted: oklch(0.76 0.02 75); /* 香槟灰 #BBB2A7 系 */
-  --faint: oklch(0.63 0.02 75);
-  --water: oklch(0.45 0.03 340); /* 暗场层次（保留 token，弱化） */
-  --fire: oklch(0.83 0.075 80); /* 香槟金 #f5c891 系 —— 唯一强调 */
-  --fire-2: oklch(0.76 0.09 78);
-  --line: oklch(0.34 0.014 340);
+  /* Richmond 品牌系 v2（取自官网 richmondjbcc.com 的米白+香槟系）：
+     暖米白 drenched 底改为 clean 底 + 香槟金属 #A9834C 系为唯一强调。
+     token 名沿用引擎（--fire = 品牌强调色）。深色版见 git 历史。 */
+  --bg: oklch(0.97 0.014 85); /* 暖米白 clean 底 */
+  --surface: oklch(0.94 0.018 82);
+  --surface-2: oklch(0.9 0.022 80);
+  --ink: oklch(0.22 0.025 50); /* 暖炭正文（非纯黑） */
+  --muted: oklch(0.45 0.04 55); /* 香槟棕次要文字 */
+  --faint: oklch(0.56 0.04 55);
+  --water: oklch(0.55 0.03 340); /* 暗场层次（保留 token，弱化） */
+  --fire: oklch(0.54 0.115 73); /* 香槟金 —— 唯一强调 */
+  --fire-2: oklch(0.47 0.12 71);
+  --line: oklch(0.85 0.025 78);
 }
 
 @theme inline {
@@ -70,7 +70,7 @@ body {
 
 ::selection {
   background: var(--fire);
-  color: oklch(0.2 0.012 340);
+  color: var(--bg);
 }
 
 /* 展示字：Marcellus（Trajan 式罗马体·与 Richmond logo 同族）——全大写仍易读 */

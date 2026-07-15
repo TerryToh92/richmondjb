@@ -28,6 +28,7 @@ export default function Footer({ lang }: { lang: Lang }) {
           <div className="mb-3 text-xs font-semibold uppercase tracking-wide text-faint">{d.agentLabel}</div>
           <p>
             {SITE.agent.name}
+            {SITE.agent.renNo && <> · REN {SITE.agent.renNo}</>}
             <br />
             {zh ? "价目表 · 户型图 · 看房预约" : "Price list · floor plans · viewings"}
             <br />
@@ -52,7 +53,7 @@ export default function Footer({ lang }: { lang: Lang }) {
             width={238}
             height={84}
             unoptimized
-            className="mb-4 h-8 w-auto opacity-80" style={{filter:"brightness(0) invert(1)"}}
+            className="mb-4 h-8 w-auto opacity-80"
           />
           <p>
             <span className="font-medium text-ink">{SITE.developer.legalName}</span>

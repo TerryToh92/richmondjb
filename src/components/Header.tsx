@@ -8,7 +8,7 @@ import MobileNav from "./MobileNav";
 export default function Header({ lang }: { lang: Lang }) {
   const d = t(lang);
   return (
-    <header className="sticky top-0 z-30 border-b border-white/10 bg-surface/45 backdrop-blur-xl backdrop-saturate-150">
+    <header className="sticky top-0 z-30 border-b border-line bg-surface/70 backdrop-blur-xl backdrop-saturate-150">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
         <Link href={lp(lang, "/")} className="group flex min-w-0 items-center">
           <Image

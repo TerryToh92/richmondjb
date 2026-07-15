@@ -22,7 +22,7 @@ export const SITE = {
   agent: {
     name: "Richmond Johor Sales Team",
     legalName: "",
-    renNo: "", // 项目行销站，不主打个人 REN；若日后要挂持牌经纪，填这里
+    renNo: "77548",
     renActiveYear: "",
     title: "Sales Consultant",
     titleZh: "销售顾问",

@@ -39,7 +39,7 @@ export default function MobileNav({
       </button>
 
       {open && (
-        <div className="absolute inset-x-0 top-full border-b border-white/10 bg-surface/95 backdrop-blur-xl">
+        <div className="absolute inset-x-0 top-full border-b border-line bg-surface/95 backdrop-blur-xl">
           <nav className="mx-auto max-w-6xl px-5 py-4">
             {links.map((l) => (
               <Link

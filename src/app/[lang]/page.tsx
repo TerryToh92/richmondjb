@@ -95,7 +95,7 @@ export default async function Home({
             sizes="100vw"
             className="-z-20 object-cover"
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/60 to-bg/10" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/70 to-bg/35" />
           <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-32 sm:pb-24">
             <p className="reveal reveal-1 kicker">
               <span className="sm:hidden">{d.badge.split(" · ")[0]}</span>
@@ -244,7 +244,7 @@ export default async function Home({
                 width={238}
                 height={84}
                 unoptimized
-                className="mb-8 h-12 w-auto opacity-90" style={{filter:"brightness(0) invert(1)"}}
+                className="mb-8 h-12 w-auto opacity-90"
               />
               <h2 className="font-display text-3xl text-ink md:text-4xl">
                 {d.about.title}
@@ -357,6 +357,12 @@ export default async function Home({
                   <RoundContact message={d.waMsgGeneric} />
                 </div>
                 <dl className="mt-6 divide-y divide-line border-t border-line text-sm">
+                  {SITE.agent.renNo && (
+                    <div className="flex items-center justify-between py-3">
+                      <dt className="text-faint">REN</dt>
+                      <dd className="font-medium text-ink">{SITE.agent.renNo}</dd>
+                    </div>
+                  )}
                   <div className="flex items-center justify-between py-3">
                     <dt className="text-faint">{d.footer.agencyLabel}</dt>
                     <dd className="font-medium text-ink">{SITE.developer.name} Group</dd>

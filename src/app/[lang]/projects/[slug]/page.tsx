@@ -185,7 +185,7 @@ export default async function ProjectPage({
             fill priority sizes="100vw"
             className="-z-20 object-cover"
           />
-          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/40 to-bg/10" />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-t from-bg via-bg/70 to-bg/35" />
           <div className="mx-auto w-full max-w-6xl px-5 pb-14 pt-36">
             <nav className="mb-6 text-sm text-muted">
               <Link href={lp(lang, "/")} className="hover:text-ink">{d.home}</Link>{" "}/{" "}
@@ -392,7 +392,7 @@ export default async function ProjectPage({
                         width={110}
                         height={74}
                         unoptimized
-                        className="h-16 w-auto opacity-90" style={{filter:"brightness(0) invert(1)"}}
+                        className="h-16 w-auto opacity-90"
                       />
                     ))}
                   </div>
